@@ -11,7 +11,8 @@ help::
 
 .PHONY=frontend
 frontend::
-	(cd frontend && python -m http.server)
+	#(cd frontend && python -m http.server)
+	(cd frontend && python -m  SimpleHTTPServer)
 
 .PHONY=backend
 backend::

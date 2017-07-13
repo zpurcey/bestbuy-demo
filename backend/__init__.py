@@ -60,15 +60,13 @@ class Search(Resource):
         print("url:"+url)
         print("query:"+json.dumps(query))
         data = resp.json()
-        print (data)
+        #print (data)
         # Build an array of results
         products = []
         for hit in data['hits']['hits']:
             product = hit['_source']
             product['id'] = hit['_id']
             products.append(product['name'])
+        print "\n" + '\n'.join(products)
         return products 
 api.add_resource(Search, api_base_url+'/search')
-
-if __name__ == '__main__':
-    app.run('0.0.0.0',port=8080, threaded=True, debug=True)
