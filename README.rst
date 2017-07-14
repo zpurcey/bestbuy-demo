@@ -24,7 +24,7 @@ Clone repo, install virtualenv, install Python dependencies::
     source ./venv/bin/activate
     pip install -r requirements.txt
 
-Set API Key Environment Variable as assigned by Best Buy (https://developer.bestbuy.com/)
+Set API Key Environment Variable as assigned by Best Buy (https://developer.bestbuy.com/)::
 
     export BESTBUY_API_KEY=<your_api_key>
 
@@ -32,7 +32,7 @@ Create index:
 
     make index
 
-Import Best Buy Product Data:
+Import Best Buy Product Data::
 
     make data
 
