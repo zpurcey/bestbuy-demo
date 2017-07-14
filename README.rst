@@ -28,7 +28,7 @@ Set API Key Environment Variable as assigned by Best Buy (https://developer.best
 
     export BESTBUY_API_KEY=<your_api_key>
 
-Create index:
+Create index::
 
     make index
 
