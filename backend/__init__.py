@@ -13,16 +13,15 @@ app = Flask(__name__, static_url_path = "")
 CORS(app) # required for Cross-origin Request Sharing
 api = Api(app)
 
+myElasticServerIp = os.environ.get('ES_SERVER_IP', 'localhost')
+myIndexName = os.environ.get('ES_INDEX_NAME', 'bestbuy-products')
+
 api_base_url = '/api/v1'
 es_base_url = {
-    'products': 'http://10.128.0.4:9200/bestbuy-products-3/product',
+    'products': 'http://' + myElasticServerIp + ':9200/' + myIndexName + '/product',
 }
 
 parser = reqparse.RequestParser()
-
-@app.route('/', methods = ['GET'])
-def default():
-        return '{<br>&nbsp;&nbsp;"paths": [<br>&nbsp;&nbsp;&nbsp;&nbsp;"/wordcloud/api",<br>&nbsp;&nbsp;&nbsp;&nbsp;"/wordcloud/api/v1",<br>&nbsp;&nbsp;&nbsp;&nbsp;"/healthz",<br>&nbsp;&nbsp;]<br>}'
 
 class Healthz(Resource):
     def get(self):
