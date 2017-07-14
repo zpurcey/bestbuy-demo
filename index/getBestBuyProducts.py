@@ -31,7 +31,6 @@ def loadPage(pageNum):
         f.close()
 
 def main():
-    deleteIndex()
     pageNum = 1
     todaysDate = datetime.datetime.today().strftime('%Y.%m.%d')
     startTime = datetime.datetime.today()
@@ -49,12 +48,6 @@ def loadJson(jsonData):
     index = myIndexName 
     type = 'product'
     response = requests.post('http://' + myElasticServerIp + ':9200/'+index+'/'+type+'/', data=jsonData)
-    print(response)
-
-def deleteIndex():
-    index = myIndexName
-    type = 'product'
-    response = requests.delete('http://' + myElasticServerIp + ':9200/'+index+'/')
     print(response)
 
 main()

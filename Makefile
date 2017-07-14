@@ -11,9 +11,17 @@ help::
 
 .PHONY=frontend
 frontend::
-	#(cd frontend && python -m http.server)
-	(cd frontend && python -m  SimpleHTTPServer)
+	#(cd frontend && python -m http.server) #Python 3
+	(cd frontend && python -m  SimpleHTTPServer) #Python 2
 
 .PHONY=backend
 backend::
 	python runbackend.py
+
+.PHONY=index
+index::
+	(cd index && python createIndex.py)
+
+.PHONY=data
+data::
+	(cd index && python getBestBuyProducts.py)
