@@ -1,0 +1,48 @@
+import requests 
+import json
+import datetime
+import time
+
+def checkPageCount():
+    oldurl = 'https://api.bestbuy.com/v1/products?pageSize=100&format=json&show=sku,name,salePrice&apiKey=OgLyxvbgO4VfhlbOFgTnrUBs'
+    url = 'https://api.bestbuy.com/v1/products?page=1&pageSize=100&format=json&show=sku,name,salePrice,salesRankLongTerm,bestSellingRank,onSale,active,categoryPath.name&sort=bestSellingRank.asc&apiKey=OgLyxvbgO4VfhlbOFgTnrUBs'
+    r = requests.get(url)
+    j = r.json()
+    print j['totalPages']
+    return (j['totalPages'])
+
+def loadPage(pageNum):
+    url = 'https://api.bestbuy.com/v1/products?page=' + str(pageNum) + '&pageSize=100&format=json&show=sku,name,salePrice,salesRankLongTerm,bestSellingRank,onSale,active,categoryPath.name&sort=bestSellingRank.asc&apiKey=OgLyxvbgO4VfhlbOFgTnrUBs'
+    r = requests.get(url)
+    if r.status_code == requests.codes.ok:
+        j = r.json()
+        if 'products' in j:
+            for product in j['products']:
+                loadJson(json.dumps(product))
+    else:
+        f = open('page-missed.log', 'w')
+        f.write('Page download failed for Page ' + str(pageNum) + '\n') 
+        f.close()
+
+def main():
+    pageNum = 1
+    todaysDate = datetime.datetime.today().strftime('%Y.%m.%d')
+    startTime = datetime.datetime.today()
+    totalPageCount = checkPageCount()
+    while pageNum <= totalPageCount:
+        pageStartTime = datetime.datetime.today()
+        loadPage(pageNum)
+        pageNum += 1
+        print 'Page ' + str(pageNum) + ' of ' + str(totalPageCount) + ' completed...'
+        print 'Total runtime: ' + str((datetime.datetime.today() - startTime).total_seconds())
+        print 'Page Processed in: ' + str((datetime.datetime.today() - pageStartTime).total_seconds())
+        print 'Minutes to complete product load: ' + str((totalPageCount - pageNum)*(datetime.datetime.today() - pageStartTime).total_seconds()/60)
+
+def loadJson(jsonData):
+    todaysDate = datetime.datetime.today().strftime('%Y.%m.%d')
+    index = 'bestbuy-products' 
+    type = 'product'
+        response = requests.post('http://localhost:9200/'+index+'/'+type+'/', data=jsonData)
+        print(response)
+
+main()
