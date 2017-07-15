@@ -66,6 +66,6 @@ class Search(Resource):
             product = hit['_source']
             product['id'] = hit['_id']
             products.append(product['name'])
-        print "\n" + '\n'.join(products)
+        print "\n" + "\n".join(products).encode('utf-8')
         return products 
 api.add_resource(Search, api_base_url+'/search')
