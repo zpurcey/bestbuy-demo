@@ -1,3 +1,5 @@
 venv
 backend/__pycache__
+backend/__init__.pyc
+backend/__init__.log
 frontend/bootstrap*
