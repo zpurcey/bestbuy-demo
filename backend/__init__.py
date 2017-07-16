@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from flask import Flask, jsonify, abort, request, make_response, url_for
 from flask_restful import reqparse, Resource, Api
 from flask.ext.cors import CORS
@@ -7,7 +6,7 @@ import json
 import os
 import uuid
 import getpass
-
+import datetime
 
 app = Flask(__name__, static_url_path = "")
 CORS(app) # required for Cross-origin Request Sharing
@@ -38,7 +37,7 @@ class Search(Resource):
         # base search URL
         url = es_base_url['products']+'/_search'
         # Query Elasticsearch
-	query_alnum = ''.join(e for e in query_string['q'] if (e.isalnum() or e.isspace()) )
+        query_alnum = ''.join(e for e in query_string['q'] if (e.isalnum() or e.isspace()) )
         query = {
             "query": {
                 "match": {
@@ -56,16 +55,23 @@ class Search(Resource):
             ]
         } 
         resp = requests.post(url, data=json.dumps(query))
-        print("url:"+url)
-        print("query:"+json.dumps(query))
         data = resp.json()
-        #print (data)
+
         # Build an array of results
         products = []
         for hit in data['hits']['hits']:
             product = hit['_source']
             product['id'] = hit['_id']
             products.append(product['name'])
-        print "\n" + '\n'.join(products)
+
+        #Request Logging
+        f = open('backend/__init__.log', 'a')
+        f.write("\n")
+        f.write("\nrequest.url: " + request.url)
+        f.write("\nurl: "+url)
+        f.write("\nquery: "+json.dumps(query))
+        f.write('\n' + '\n'.join(products).encode('utf-8') )
+        f.write('\nQuery Processed in: ' + str((datetime.datetime.today() - startTime).microseconds / 1000) + ' milliseconds')
+        f.close()
         return products 
 api.add_resource(Search, api_base_url+'/search')
