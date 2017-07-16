@@ -56,17 +56,14 @@ class Search(Resource):
             ]
         } 
         resp = requests.post(url, data=json.dumps(query))
-        print("url:"+url)
-        print("query:"+json.dumps(query))
         data = resp.json()
-        #print (data)
-        # Build an array of results
+
+	# Build an array of results
         products = []
         for hit in data['hits']['hits']:
             product = hit['_source']
             product['id'] = hit['_id']
             products.append(product['name'])
-        print "\n" + "\n".join(products).encode('utf-8')
 
         #Request Logging
         f = open('backend/__init__.log', 'a')
