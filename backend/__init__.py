@@ -58,7 +58,7 @@ class Search(Resource):
         resp = requests.post(url, data=json.dumps(query))
         data = resp.json()
 
-	# Build an array of results
+        # Build an array of results
         products = []
         for hit in data['hits']['hits']:
             product = hit['_source']
