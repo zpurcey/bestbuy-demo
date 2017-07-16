@@ -7,7 +7,7 @@ import json
 import os
 import uuid
 import getpass
-import datetime
+
 
 app = Flask(__name__, static_url_path = "")
 CORS(app) # required for Cross-origin Request Sharing
@@ -56,12 +56,16 @@ class Search(Resource):
             ]
         } 
         resp = requests.post(url, data=json.dumps(query))
+        print("url:"+url)
+        print("query:"+json.dumps(query))
         data = resp.json()
+        #print (data)
         # Build an array of results
         products = []
         for hit in data['hits']['hits']:
             product = hit['_source']
             product['id'] = hit['_id']
             products.append(product['name'])
+        print "\n" + '\n'.join(products)
         return products 
 api.add_resource(Search, api_base_url+'/search')
