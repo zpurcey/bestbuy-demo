@@ -6,9 +6,9 @@ $(document).ready(function() {
   var bestProducts = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.nonword('value'),
     queryTokenizer: Bloodhound.tokenizers.nonword,
-    prefetch: 'http://localhost:8080/api/v1/search?q=google',
+    prefetch: '/es/api/v1/search?q=google',
     remote: {
-      url: 'http://localhost:8080/api/v1/search?q=%QUERY',
+      url: '/es/api/v1/search?q=%QUERY',
       wildcard: '%QUERY'
     }
   });
