@@ -31,6 +31,7 @@ api.add_resource(Healthz, api_base_url+'/healthz')
 class Search(Resource):
  
     def get(self):
+        startTime = datetime.datetime.today()
         # parse the query: ?q=[something]
         parser.add_argument('q')
         query_string = parser.parse_args()
@@ -65,7 +66,7 @@ class Search(Resource):
             products.append(product['name'])
 
         #Request Logging
-        f = open('backend/__init__.log', 'a')
+        f = open('/tmp/__init__.log', 'a')
         f.write("\n")
         f.write("\nrequest.url: " + request.url)
         f.write("\nurl: "+url)
