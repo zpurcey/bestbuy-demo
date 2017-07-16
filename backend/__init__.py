@@ -57,22 +57,11 @@ class Search(Resource):
         } 
         resp = requests.post(url, data=json.dumps(query))
         data = resp.json()
-
         # Build an array of results
         products = []
         for hit in data['hits']['hits']:
             product = hit['_source']
             product['id'] = hit['_id']
             products.append(product['name'])
-
-        #Request Logging
-        f = open('backend/__init__.log', 'a')
-        f.write("\n")
-        f.write("\nrequest.url: " + request.url)
-        f.write("\nurl: "+url)
-        f.write("\nquery: "+json.dumps(query))
-        f.write('\n' + '\n'.join(products).encode('utf-8') )
-        f.write('\nQuery Processed in: ' + str((datetime.datetime.today() - startTime).microseconds / 1000) + ' milliseconds')
-        f.close()
         return products 
 api.add_resource(Search, api_base_url+'/search')
