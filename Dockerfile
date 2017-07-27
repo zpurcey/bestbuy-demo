@@ -56,4 +56,7 @@ RUN chown www-data:www-data /var/www/frontend/static -R
 RUN chown www-data:www-data /var/www/frontend/js -R
 RUN chown www-data:www-data /var/www/frontend/css -R
 
+RUN export ES_SERVER_IP=$ES_SERVER_IP
+RUN export ES_INDEX_NAME=$ES_INDEX_NAME
+
 CMD ["apache2","-DFOREGROUND"]
