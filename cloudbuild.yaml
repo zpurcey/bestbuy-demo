@@ -1,5 +1,6 @@
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/elastic-search-autocomplete/bestbuy-demo:$REVISION_ID", "-f", "Dockerfile", "."]
+    env: ["ES_SERVER_IP=35.186.159.56","ES_INDEX_NAME=bestbuy-products-17july2017"]
 images:
   - "gcr.io/elastic-search-autocomplete/bestbuy-demo:$REVISION_ID"
