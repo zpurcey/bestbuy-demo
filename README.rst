@@ -1,4 +1,4 @@
-Best Buy Product Auto Complete Demo
+Best Buy Product Auto Complete Demo 
 ===============
 
 Please notice this is **experimental** (use at your own risk).
