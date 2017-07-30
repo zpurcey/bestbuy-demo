@@ -24,14 +24,19 @@ parser = reqparse.RequestParser()
 
 class Healthz(Resource):
     def get(self):
-        healthInfo = """
-<!DOCTYPE html>
-<body>  
-    <p>ES_SERVER_IP: {0}</p>
-    <p>ES_INDEX_NAME: {1}</p>'
-    <p>OK</p>
-</body>
-"""
+        healthInfo ="""{
+  "name" : "Possessor",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "ixnVmB_OSJqXpC-qVj2D0g",
+  "version" : {
+    "number" : "2.4.5",
+    "build_hash" : "c849dd13904f53e63e88efc33b2ceeda0b6a1276",
+    "build_timestamp" : "2017-04-24T16:18:17Z",
+    "build_snapshot" : false,
+    "lucene_version" : "5.5.4"
+  },
+  "tagline" : "You Know, for Search"
+}"""
         return healthInfo.format(myElasticServerIp,myIndexName)
 
 api.add_resource(Healthz, api_base_url+'/healthz')
