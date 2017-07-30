@@ -24,12 +24,7 @@ parser = reqparse.RequestParser()
 
 class Healthz(Resource):
     def get(self):
-        healthInfo ="""{
-  "ES_SERVER_IP" : "{0}",
-  "ES_INDEX_NAME" : "{1}",
-  "STATUS" : "OK"
-}"""
-        return healthInfo.format(myElasticServerIp,myIndexName), 200, {'Content-Type': 'text/css; charset=utf-8'}
+        return 'OK'
 
 api.add_resource(Healthz, api_base_url+'/healthz')
 
