@@ -1,7 +1,4 @@
 steps:
-  - name: "gcr.io/cloud-builders/go"
-    args: ["install", "github.com/zpurcey/bestbuy-demo"]
-    env: ["PROJECT_ROOT=github.com/zpurcey/bestbuy-demo"]
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/elastic-search-autocomplete/bestbuy-demo:$REVISION_ID", "-f", "Dockerfile", "."]
 images:
