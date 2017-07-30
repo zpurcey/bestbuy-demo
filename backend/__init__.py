@@ -29,7 +29,7 @@ class Healthz(Resource):
   "ES_INDEX_NAME" : "{1}",
   "STATUS" : "OK"
 }"""
-        return healthInfo.format(myElasticServerIp,myIndexName)
+        return healthInfo.format(myElasticServerIp,myIndexName), 200, {'Content-Type': 'text/css; charset=utf-8'}
 
 api.add_resource(Healthz, api_base_url+'/healthz')
 
