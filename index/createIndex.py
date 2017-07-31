@@ -14,7 +14,7 @@ def createIndex():
     with open('mapping.json') as mappingFile:
         jsonData = json.load(mappingFile)
     type = 'product'
-    postUrl = 'http://' + myElasticServerIp + ':9200/' + myIndexName + '/'+type+'/'
+    postUrl = 'http://' + myElasticServerIp + ':9200/' + myIndexName + '/'
     print(postUrl)
     response = requests.post(postUrl, data=json.dumps(jsonData))
     print(response)
