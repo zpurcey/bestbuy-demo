@@ -16,7 +16,7 @@ $(document).ready(function() {
   $('#remote .typeahead').typeahead({
     hint: false,
     highlight: true,
-    minLength: 3
+    minLength: 1
   }, {
     name: 'best-products',
     source: bestProducts,
